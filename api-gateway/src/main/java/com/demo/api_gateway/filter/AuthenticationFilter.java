@@ -45,13 +45,13 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 					// RestClient
 					// can keep this call in a seperate JwtUtil class and call
 					RestClient restClient=RestClient.create();
-					restClient.get().uri("http://localhost:8090/api/auth/validate/token?token=" + authHeaderToken)
+					restClient.get().uri("http://authentication-sr:8090/api/auth/validate/token?token=" + authHeaderToken)
 							.retrieve().body(Boolean.class);
 					HttpMethod requestMethod = exchange.getRequest().getMethod();
 					System.out.println(requestMethod);
 					List<HttpMethod> adminAccess = List.of(HttpMethod.POST,HttpMethod.GET,HttpMethod.DELETE,HttpMethod.PUT);
 					List<HttpMethod> userAccess = List.of(HttpMethod.GET);
-					String role = restClient.get().uri("http://localhost:8090/api/auth/validate/role?token=" + authHeaderToken)
+					String role = restClient.get().uri("http://authentication-sr:8090/api/auth/validate/role?token=" + authHeaderToken)
 							.retrieve().body(String.class);
 					System.out.println(role);
                     if(role.equals("admin") && adminAccess.contains(requestMethod)){

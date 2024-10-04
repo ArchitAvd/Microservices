@@ -2,7 +2,7 @@ version: "3"
 services:
   registry-sr:
     image: registry-service
-    build: ./service-registry/service-registry
+    build: ./service-registry
     ports:
         - "8761:8761"
     networks:
@@ -17,7 +17,7 @@ services:
    
   config-sr:
     image: config-server
-    build: ./config-server/config-server
+    build: ./config-server
     ports:
         - "8088:8088"
     networks:
@@ -27,7 +27,7 @@ services:
         - zipkin-sr
   api-gateway-sr:
     image: api-gateway
-    build: ./api-gateway/api-gateway
+    build: ./api-gateway
     ports:
         - "8060:8060"
     networks:
@@ -36,9 +36,12 @@ services:
         - registry-sr
         - zipkin-sr
         - config-sr
+#        - department-sr
+#        - employee-sr
+#        - authentication-sr
   authentication-sr:
     image: authentication-service
-    build: ./authentication-service/authentication-service
+    build: ./authentication-service
     ports:
         - "8090:8090"
     networks:
@@ -47,10 +50,10 @@ services:
         - registry-sr
         - zipkin-sr
         - config-sr
-        - api-gateway-sr
+#        - api-gateway-sr
   department-sr:
     image: department-service
-    build: ./department-service/department-service
+    build: ./department-service
     ports:
         - "8081:8081"
     networks:
@@ -59,12 +62,12 @@ services:
         - registry-sr
         - zipkin-sr
         - config-sr
-        - api-gateway-sr
         - authentication-sr
+#        - api-gateway-sr
    
   employee-sr:
     image: employee-service
-    build: ./employee-service/employee-service
+    build: ./employee-service
     ports:
         - "8082:8082"
     networks:
@@ -73,5 +76,17 @@ services:
         - registry-sr
         - zipkin-sr
         - config-sr
-        - api-gateway-sr
         - authentication-sr
+#        - api-gateway-sr
+
+#  mysqldb:
+#    image: mysql:8
+#    networks:
+#        - app-network
+#    environment:
+#        - MYSQL_ROOT_PASSWORD=root
+#        - MYSQL_DATABASE=organizationdb
+
+networks:
+  app-network:
+

@@ -1,4 +1,4 @@
-package com.demo.employee_service.dao.entity;
+package com.demo.employee_service.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
